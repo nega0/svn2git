@@ -744,7 +744,7 @@ int SvnRevision::exportInternal(const char *key, const svn_fs_path_change2_t *ch
                           &preveffectiverepository, &prevbranch, &prevpath);
 
         } else {
-            qWarning() << "WARN: SVN reports a \"copy from\" @" << revnum << "from" << path_from << "@" << rev_from << "but no matching rules found! Ignoring copy, treating as a modification";
+            qWarning() << "\nWARN: SVN reports a \"copy from\" @" << revnum << "from" << path_from << "@" << rev_from << "but no matching rules found! Ignoring copy, treating as a modification";
             path_from = NULL;
             needRecursiveDump = true;
         }
