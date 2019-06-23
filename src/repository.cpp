@@ -1111,11 +1111,12 @@ int FastImportRepository::Transaction::commit()
     QByteArray message = log;
     if (!message.endsWith('\n'))
         message += '\n';
-    if (CommandLineParser::instance()->contains("add-metadata"))
-        message += "\n" + Repository::formatMetadataMessage(svnprefix, revnum);
 
     // Call external message filter if provided
     message = repository->msgFilter(message);
+
+    if (CommandLineParser::instance()->contains("add-metadata"))
+        message += "\n" + Repository::formatMetadataMessage(svnprefix, revnum);
 
     mark_t parentmark = 0;
     Branch &br = repository->branches[branch];
