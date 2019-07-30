@@ -1,7 +1,9 @@
 Makefile
 *~
 *.o
+.qmake.stash
 svn-all-fast-export
 svn-all-fast-export.exe
+svn-all-fast-export.app/
 src/local-config.pri
 /build/
