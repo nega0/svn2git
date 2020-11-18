@@ -33,6 +33,7 @@ jobs:
             build-essential \
             libapr1-dev \
             libsvn-dev \
+            pkg-config \
             qt5-default \
             qtbase5-dev
 

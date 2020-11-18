@@ -9,6 +9,12 @@ if(!defined(APR_INCLUDE, var)) {
 }
 exists(local-config.pri):include(local-config.pri)
 
+## override directories on linux
+unix {
+  SVN_INCLUDE = $$system(pkg-config --variable includedir libsvn_fs)/subversion-1
+  APR_INCLUDE = $$system(pkg-config --variable includedir apr-1)
+}
+
 if(!defined(VERSION, var)) {
   VERSION = $$system(git --no-pager show --pretty=oneline --no-notes | head -1 | cut -b-40)
 }
