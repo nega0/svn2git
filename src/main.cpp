@@ -155,8 +155,35 @@ static const CommandLineOption options[] = {
     CommandLineLastOption
 };
 
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QByteArray localMsg = msg.toLocal8Bit();
+    const char *file = context.file ? context.file : "";
+    const char *function = context.function ? context.function : "";
+    switch (type) {
+    case QtDebugMsg:
+        fprintf(stderr, "\x1b[35mDebug: %s (%s:%u, %s)\x1b[0m\n", localMsg.constData(), file, context.line, function);
+        break;
+    case QtInfoMsg:
+        fprintf(stderr, "\x1b[36mInfo: %s (%s:%u, %s)\x1b[0m\n", localMsg.constData(), file, context.line, function);
+        break;
+    case QtWarningMsg:
+        fprintf(stderr, "\x1b[33mWarning: %s (%s:%u, %s)\x1b[0m\n", localMsg.constData(), file, context.line, function);
+        break;
+    case QtCriticalMsg:
+        fprintf(stderr, "\x1b[31mCritical: %s (%s:%u, %s)\x1b[0m\n", localMsg.constData(), file, context.line, function);
+        break;
+    case QtFatalMsg:
+        fprintf(stderr, "\x1b[41;30mFatal: %s (%s:%u, %s)\x1b[0m\n", localMsg.constData(), file, context.line, function);
+        break;
+    }
+}
+
 int main(int argc, char **argv)
 {
+
+    qInstallMessageHandler(myMessageOutput);
+
     printf("Invoked as:'");
     for(int i = 0; i < argc; ++i)
         printf(" %s", argv[i]);
